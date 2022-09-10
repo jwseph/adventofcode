@@ -2,24 +2,17 @@ import java.util.*;
 import java.io.*;
 
 public class Day10A {
-    private static char getClosing(char c) throws Exception {
-        // could have done this with ascii but switch is more readable
-        switch (c) {
-            case '(': return ')';
-            case '[': return ']';
-            case '{': return '}';
-            case '<': return '>';
-        }
-        throw new Exception("Couldn't get closing bracket of "+c);
-    }
-    private static int getScore(char c) throws Exception {
-        switch (c) {
-            case ')': return 3;
-            case ']': return 57;
-            case '}': return 1197;
-            case '>': return 25137;
-        }
-        throw new Exception("Couldn't get score of "+c);
+    public static final Map<Character, Character> close = new HashMap<Character, Character>();
+    public static final Map<Character, Integer> scores = new HashMap<Character, Integer>();
+    static {
+        close.put('(', ')');
+        close.put('[', ']');
+        close.put('{', '}');
+        close.put('<', '>');
+        scores.put(')', 3);
+        scores.put(']', 57);
+        scores.put('}', 1197);
+        scores.put('>', 25137);
     }
     private static boolean isClosing(char c) {
         return c == ')' || c == ']' || c == '}' || c == '>';
@@ -29,17 +22,17 @@ public class Day10A {
         
         int res = 0;
         while (in.hasNext()) {
-            Stack<Character> s = new Stack<Character>();
+            Deque<Character> s = new ArrayDeque<Character>();  // stack sucks in java
             for (char c: in.next().toCharArray()) {
-                if (!isClosing(c)) {
-                    s.push(getClosing(c));
+                if (close.containsKey(c)) {
+                    s.addLast(close.get(c));
                     continue;
                 }
-                if (s.peek() == c) {
-                    s.pop();
+                if (s.peekLast() == c) {
+                    s.removeLast();
                     continue;
                 }
-                res += getScore(c);
+                res += scores.get(c);
                 break;
             }
         }
