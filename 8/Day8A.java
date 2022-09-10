@@ -12,6 +12,7 @@ public class Day8A {
             if (t --> 0 && (n <= 4 || n == 7)) res++;
             if (s.equals("|")) t = 4;
         }
+        
         System.out.println(res);
     }
 }
