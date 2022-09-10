@@ -14,10 +14,7 @@ public class Day10A {
         scores.put('}', 1197);
         scores.put('>', 25137);
     }
-    private static boolean isClosing(char c) {
-        return c == ')' || c == ']' || c == '}' || c == '>';
-    }
-    public static void main(String[] args) throws FileNotFoundException, Exception {
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner in = new Scanner(new File("Day10.in"));
         
         int res = 0;
