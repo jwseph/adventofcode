@@ -6,16 +6,13 @@ public class Day1B {
         Scanner in = new Scanner(new File("Day1.in"));
         
         int a = in.nextInt(), b = in.nextInt(), c = in.nextInt();
-        int sum = a+b+c;
         int res = 0;
         while (in.hasNextInt()) {
-            int lastSum = sum;
-            sum -= a;
+            int d = in.nextInt();
+            if (d > a) res++;
             a = b;
             b = c;
-            c = in.nextInt();
-            sum += c;
-            if (sum > lastSum) res++;
+            c = d;
         }
         
         System.out.println(res);
