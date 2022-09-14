@@ -63,15 +63,22 @@ public class Day18A {
         Number getLast() { return r instanceof Number ? (Number)r : ((Pair)r).getLast(); }
         Number getFirst() { return l instanceof Number ? (Number)l : ((Pair)l).getFirst(); }
         void scan(int depth) {
+            String temp = null;
+            if (l instanceof Pair) temp = ""+(Pair)l;
+            if (l instanceof Pair) System.out.println("l instanceof Pair");
             if (l instanceof Pair) ((Pair)l).scan(depth+1);
+            if (r instanceof Pair) System.out.println("r instanceof Pair");
             if (r instanceof Pair) ((Pair)r).scan(depth+1);
             if (depth < 4) return;
             Number l, r;
             if ((l = getLeft()) != null) {
+                System.out.println("left"+" "+(this.l instanceof Pair)+" "+(this.l instanceof Number));
+                if (temp != null) System.out.println(temp+" "+this.l);
                 l.val += ((Number)this.l).val;
                 l.splitIfNeeded();
             }
             if ((r = getRight()) != null) {
+                System.out.println("right");
                 r.val += ((Number)this.r).val;
                 r.splitIfNeeded();
             }
@@ -87,13 +94,14 @@ public class Day18A {
         in = new Scanner(new File("Day18.in")).useDelimiter("\\r*\\n*");
         
         Pair c = new Pair();
-        c.scan(0);
+        // c.scan(0);
         System.out.println(c);
         while (in.hasNext()) {
             c = Pair.sum(c, new Pair());
-            c.scan(0);
+            // c.scan(0);
             System.out.println(c);
         }
+        c.scan(0);
         System.out.println(c.getMagnitude());
     }
 }
