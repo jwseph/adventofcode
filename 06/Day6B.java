@@ -9,7 +9,7 @@ public class Day6B {
         for (String s: in.nextLine().split(",")) {
             a[Integer.parseInt(s)]++;
         }
-        for (int d = 0; d < 256; d++) {
+        for (int t = 0; t < 256; t++) {
             long b = a[0];
             for (int i = 0; i < 8; i++) {
                 a[i] = a[i+1];
