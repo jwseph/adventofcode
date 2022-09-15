@@ -18,7 +18,7 @@ public class Day3B {
         while (in.hasNext()) arr.add(in.next());
         
         List<String> a = new ArrayList<String>(arr);
-        for (int c = 0; c < n; c++) {
+        for (int c = 0; a.size() > 1; c++) {
             List<String> b = new ArrayList<String>();
             for (int i = a.size()-1; i >= 0; i--) {
                 String s = a.get(i);
@@ -33,7 +33,7 @@ public class Day3B {
         int o2 = getDecimal(a.get(0));
         
         a = new ArrayList<String>(arr);
-        for (int c = 0; c < n; c++) {
+        for (int c = 0; a.size() > 1; c++) {
             List<String> b = new ArrayList<String>();
             for (int i = a.size()-1; i >= 0; i--) {
                 String s = a.get(i);
@@ -43,7 +43,6 @@ public class Day3B {
                 }
             }
             if (b.size() < a.size()) a = b;
-            if (a.size() == 1) break;
         }
         int co2 = getDecimal(a.get(0));
         
