@@ -36,7 +36,7 @@ public class Day4A {
             return -1;
         }
         private boolean check(int r, int c) {
-            return checkRow(r) || checkCol(c) || checkDiag1() || checkDiag2();
+            return checkRow(r) || checkCol(c);
         }
         private boolean checkRow(int r) {
             for (int c = 0; c < 5; c++) if (!marked[r][c]) return false;
@@ -44,14 +44,6 @@ public class Day4A {
         }
         private boolean checkCol(int c) {
             for (int r = 0; r < 5; r++) if (!marked[r][c]) return false;
-            return true;
-        }
-        private boolean checkDiag1() {
-            for (int i = 0; i < 5; i++) if (!marked[i][i]) return false;
-            return true;
-        }
-        private boolean checkDiag2() {
-            for (int i = 0; i < 5; i++) if (!marked[5-1-i][i]) return false;
             return true;
         }
     }
