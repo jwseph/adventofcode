@@ -30,9 +30,7 @@ public class Day4B {
             return check(r, c);
         }
         private int indexOf(int x) {
-            for (int i = 0; i < 5*5; i++) if (board[i] == x) {
-                return i;
-            }
+            for (int i = 0; i < 5*5; i++) if (board[i] == x) return i;
             return -1;
         }
         private boolean check(int r, int c) {
