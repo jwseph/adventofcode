@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class LetterInventory {
     private int cnt[] = new int[26];
     private static char lower(char c) {
