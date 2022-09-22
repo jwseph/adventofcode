@@ -1,15 +1,15 @@
 import java.util.*;
 
 public class LetterInventory {
-    int cnt[] = new int[26];
+    private int cnt[] = new int[26];
     private static char lower(char c) {
         return c < 'a' ? (char)(c-'A'+'a') : c;
     }
     private static boolean alpha(char c) {
         return 'a' <= c && c <= 'z';
     }
-    public LetterInventory(String str) {
-        for (char c: str.toCharArray()) {
+    public LetterInventory(String s) {
+        for (char c: s.toCharArray()) {
             c = lower(c);
             if (alpha(c)) cnt[c-'a']++;
         }
@@ -26,9 +26,7 @@ public class LetterInventory {
     }
     public String toString() {
         String s = "";
-        for (char c = 'a'; c <= 'z'; c = (char)(c+1)) {
-            for (int i = 0; i < cnt[c-'a']; i++) s += c;
-        }
+        for (char c = 'a'; c <= 'z'; c = (char)(c+1)) for (int i = 0; i < cnt[c-'a']; i++) s += c;
         return s;
     }
     public LetterInventory add(LetterInventory other) {
