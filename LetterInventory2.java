@@ -8,23 +8,18 @@ public class LetterInventory {
     }
     public LetterInventory(String s) {
         // Generate a LetterInventory which counts the number of each letter in the English alphabet. Non-letter characters in the String will be ignored.
-        for (char c: s.toCharArray()) {
-            c = lower(c);
-            if (alpha(c)) cnt[c-'a']++;
-        }
+        for (char c: s.toCharArray()) if (alpha(c = lower(c))) cnt[c-'a']++;
     }
     public int get(char c) throws IllegalArgumentException {
         // Get the count of a letter
         // Precondition: Character is a letter. Failure throws an IllegalArgumentException.
-        c = lower(c);
-        if (!alpha(c)) throw new IllegalArgumentException();
+        if (!alpha(c = lower(c))) throw new IllegalArgumentException();
         return cnt[c-'a'];
     }
     public void set(char c, int n) {
         // Set the count of a letter
         // Precondition: Character is a letter. Failure throws an IllegalArgumentException.
-        c = lower(c);
-        if (!alpha(c)) throw new IllegalArgumentException();
+        if (!alpha(c = lower(c))) throw new IllegalArgumentException();
         cnt[c-'a'] = n;
     }
     public String toString() {
