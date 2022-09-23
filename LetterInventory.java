@@ -2,9 +2,11 @@ public class LetterInventory {
     private int cnt[] = new int[26];
     private int sum = 0;
     private static char lower(char c) {
+        // This is cooler than the method Character::toLowerCase
         return c < 'a' ? (char)(c-'A'+'a') : c;
     }
     private static boolean alpha(char c) {
+        // Checks if character is in the range [a, z]
         return 'a' <= c && c <= 'z';
     }
     public LetterInventory(String s) {
