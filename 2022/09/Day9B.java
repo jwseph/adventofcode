@@ -4,16 +4,17 @@ import java.io.*;
 public class Day9B {
     private static int[] r = new int[10], c = new int[10];
     private static Set<Integer> vst = new HashSet<>();
-    private static void move(int i, int dr, int dc) {
-        int pr = r[i], pc = c[i];
-        r[i] += dr;
-        c[i] += dc;
+    private static void move(int i) {
+        if (Math.abs(r[i]-r[i-1]) <= 1 && Math.abs(c[i]-c[i-1]) <= 1) return;
+        if (r[i] < r[i-1]) r[i]++;
+        if (r[i-1] < r[i]) r[i]--;
+        if (c[i] < c[i-1]) c[i]++;
+        if (c[i-1] < c[i]) c[i]--;
         if (i == 9) {
-            visit(r[9], c[9]);
+            visit(r[i], c[i]);
             return;
         }
-        if (Math.abs(r[i]-r[i+1]) <= 1 && Math.abs(c[i]-c[i+1]) <= 1) return;
-        move(i+1, pr-r[i+1], pc-c[i+1]);
+        move(i+1);
     }
     private static void visit(int r, int c) {
         vst.add((r+500)*1000+(c+500));
@@ -31,7 +32,9 @@ public class Day9B {
                 case 'R': dc = 1; break;
             }
             for (int d = Integer.parseInt(in.next()); d > 0; d--) {
-                move(0, dr, dc);
+                r[0] += dr;
+                c[0] += dc;;
+                move(1);
             }
         }
         
