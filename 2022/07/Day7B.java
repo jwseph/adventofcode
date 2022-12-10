@@ -24,10 +24,10 @@ public class Day7B {
     public static void main(String[] args) throws FileNotFoundException {
         in = new Scanner(new File("Day7.in"));
         in.next();
-        int totalSize = dfs();
+        int rootSize = dfs();
         int res = Integer.MAX_VALUE;
         for (int size: sizes) {
-            if (totalSize-size <= 40000000) {
+            if (rootSize-size <= 40000000) {
                 res = Math.min(res, size);
             }
         }
