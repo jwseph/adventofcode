@@ -2,31 +2,25 @@ import java.util.*;
 import java.io.*;
 
 public class Day12B {
-    private static int compare(List<Integer> a, List<Integer> b) {
-        return Integer.compare(a.get(2), b.get(2));
-    }
-    private static int bfs(char arr[][], int s_r, int s_c, int e_r, int e_c) {
+    private static int bfs(char arr[][], int s_r, int s_c, int e_r, int e_c, int max) {
         int nr = arr.length, nc = arr[0].length;
-        int dst[][] = new int[nr][nc];
-        boolean vst[][] = new boolean[nr][nc];
-        for (int r = 0; r < nr; r++) for (int c = 0; c < nc; c++) {
-            dst[r][c] = Integer.MAX_VALUE;
+        boolean[][] vst = new boolean[nr][nc];
+        Queue<List<Integer>> q = new LinkedList<>();
+        q.add(Arrays.asList(s_r, s_c));
+        for (int i = 0; i < max; i++) {
+            for (int j = q.size(); j > 0; j--) {
+                List<Integer> x = q.remove();
+                int r = x.get(0), c = x.get(1);
+                if (r == e_r && c == e_c) return i;
+                if (vst[r][c]) continue;
+                vst[r][c] = true;
+                if (r-1 >= 0 && arr[r-1][c] <= arr[r][c]+1) q.add(Arrays.asList(r-1, c));
+                if (r+1 < nr && arr[r+1][c] <= arr[r][c]+1) q.add(Arrays.asList(r+1, c));
+                if (c-1 >= 0 && arr[r][c-1] <= arr[r][c]+1) q.add(Arrays.asList(r, c-1));
+                if (c+1 < nc && arr[r][c+1] <= arr[r][c]+1) q.add(Arrays.asList(r, c+1));
+            }
         }
-
-        PriorityQueue<List<Integer>> pq = new PriorityQueue<>(Day12B::compare);
-        pq.add(Arrays.asList(s_r, s_c, 0));
-        while (!pq.isEmpty()) {
-            List<Integer> x = pq.remove();
-            int r = x.get(0), c = x.get(1), d = x.get(2);
-            if (vst[r][c]) continue;
-            vst[r][c] = true;
-            dst[r][c] = Math.min(dst[r][c], d);
-            if (r-1 >= 0) pq.add(Arrays.asList(r-1, c, dst[r][c]+(arr[r-1][c] <= arr[r][c]+1 ? 1 : 1000000)));
-            if (r+1 < nr) pq.add(Arrays.asList(r+1, c, dst[r][c]+(arr[r+1][c] <= arr[r][c]+1 ? 1 : 1000000)));
-            if (c-1 >= 0) pq.add(Arrays.asList(r, c-1, dst[r][c]+(arr[r][c-1] <= arr[r][c]+1 ? 1 : 1000000)));
-            if (c+1 < nc) pq.add(Arrays.asList(r, c+1, dst[r][c]+(arr[r][c+1] <= arr[r][c]+1 ? 1 : 1000000)));
-        }
-        return dst[e_r][e_c];
+        return Integer.MAX_VALUE;
     }
     public static void main(String[] args) throws FileNotFoundException {
         Scanner in = new Scanner(new File("Day12.in"));
@@ -52,7 +46,7 @@ public class Day12B {
 
         int res = Integer.MAX_VALUE;
         for (List<Integer> rc: s_rc) {
-            res = Math.min(res, bfs(arr, rc.get(0), rc.get(1), e_r, e_c));
+            res = Math.min(res, bfs(arr, rc.get(0), rc.get(1), e_r, e_c, res));
         }
         System.out.println(res);
     }
